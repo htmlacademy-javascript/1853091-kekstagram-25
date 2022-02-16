@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Aleksandrs Timofejevs](https://up.htmlacademy.ru/javascript/25/user/1853091).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Лукин](https://htmlacademy.ru/profile/id1313529).
 
 ---
 
