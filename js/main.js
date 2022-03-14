@@ -48,76 +48,62 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const ALL_PHOTO_COUNT = 25;
+//Создаем объект фотографии
 
-// Функция загрузки фотографии
+const createPhoto = (id) => {
 
-const uploadedPhoto = () => {
-
-  // Генерируем ID от 1 до 25 (используем цикл, потому-что ID не должен повторяться)
-
-  let randomId = () => {
-    for (let i = 1; i <= 25; i++) {
-      randomId = i;
-    }
-  };
-
-  // Генерируем URL
-
-  let randomUrl = () => {
-    for (let i = 1; i <= 25; i++) {
-      randomUrl = `photos/${i}.jpg`;
-    }
-  };
-
-  // Получаем случайное описание из массива описаний
-
+  //Выбираем случайное описание фотографии из массива описаний
   const randomDescription = getRandomNumbIncluded(0, DESCRIPTIONS.length - 1);
 
-  // Генерируем случайное число лайков от 15 до 200
-
+  //Устанавливаем случайное число лайков в диапазоне от 15 до 200
   const randomLikes = getRandomNumbIncluded(15, 200);
 
-  // Получаем ID комментария
-
-  const commentId = getRandomNumbIncluded(0, 25);
-
-  // Получаем номер аватарки от 1 до 6
-
-  let randomAvatar = () => {
-    for (let i = 1; i <= 6; i++) {
-      randomAvatar = `img/avatar-${i}.svg`;
-    }
-  };
-
-  // Получаем случайный комментарий из массива комментариев
-
-  const randomMessage = getRandomNumbIncluded(0, COMMENTS.length - 1);
-
-  // Получаем случайное имя из массива имен
-
-  const randomNameIndex = getRandomNumbIncluded(0, NAMES.length - 1);
-
-  // Создание объекта загруженной фотографии
-
+  //Возвращаем объект фотографии
   return {
-    id: randomId,
-    url: randomUrl,
+    id,
+    url: `photos/${id}.jpg`,
     description: DESCRIPTIONS[randomDescription],
     likes: randomLikes,
-    comments: [
-      {
-        id: commentId,
-        avatar: randomAvatar,
-        message: COMMENTS[randomMessage],
-        name: NAMES[randomNameIndex]
-      }
-    ]
+    comments: []
   };
 };
 
-// Создание массива из 25 фотографий
+//Создаем массив из 25 фотографий, записываем в него объекты с помощью колбек функции createPhoto
+const createPhotos = () => {
+  const photos = [];
+  for (let i = 1; i < 25; i++) {
+    return photos.push(createPhoto(i));
+  }
+};
 
-const allPhotos = Array.from({length: ALL_PHOTO_COUNT}, uploadedPhoto);
+//Создаем комментарий
+const createComment = (id) => {
 
-allPhotos();
+  //Создаем URL аватарки
+  const randomAvatar = getRandomNumbIncluded(0, 6);
+
+  //Выбираем случайное имя из массива имен
+  const randomName = getRandomNumbIncluded(0, NAMES.length - 1);
+
+  //Выбираем случайное сообщение из массива комментариев
+  const randomMessage = getRandomNumbIncluded(0, COMMENTS.length - 1);
+
+  return {
+    id,
+    avatar: `img/avatar-${randomAvatar}.svg`,
+    message: COMMENTS[randomMessage],
+    name: NAMES[randomName]
+  };
+};
+
+//Создаем массив из 3 комментариев
+
+const createComments = () => {
+  const comments = [];
+  for (let i = 1; i < 3; i++) {
+    return comments.push(createComment(i));
+  }
+};
+
+createPhoto(createPhotos());
+createComment(createComments());
