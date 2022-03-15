@@ -50,32 +50,6 @@ const COMMENTS = [
 
 //Создаем объект фотографии
 
-const createPhoto = (id) => {
-
-  //Выбираем случайное описание фотографии из массива описаний
-  const randomDescription = getRandomNumbIncluded(0, DESCRIPTIONS.length - 1);
-
-  //Устанавливаем случайное число лайков в диапазоне от 15 до 200
-  const randomLikes = getRandomNumbIncluded(15, 200);
-
-  //Возвращаем объект фотографии
-  return {
-    id,
-    url: `photos/${id}.jpg`,
-    description: DESCRIPTIONS[randomDescription],
-    likes: randomLikes,
-    comments: []
-  };
-};
-
-//Создаем массив из 25 фотографий, записываем в него объекты с помощью колбек функции createPhoto
-const createPhotos = () => {
-  const photos = [];
-  for (let i = 1; i < 25; i++) {
-    return photos.push(createPhoto(i));
-  }
-};
-
 //Создаем комментарий
 const createComment = (id) => {
 
@@ -100,10 +74,37 @@ const createComment = (id) => {
 
 const createComments = () => {
   const comments = [];
-  for (let i = 1; i < 3; i++) {
-    return comments.push(createComment(i));
+  for (let i = 1; i <= 3; i++) {
+    comments.push(createComment(i));
   }
+  return comments;
 };
 
-createPhoto(createPhotos());
-createComment(createComments());
+const createPhoto = (id) => {
+
+  //Выбираем случайное описание фотографии из массива описаний
+  const randomDescription = getRandomNumbIncluded(0, DESCRIPTIONS.length - 1);
+
+  //Устанавливаем случайное число лайков в диапазоне от 15 до 200
+  const randomLikes = getRandomNumbIncluded(15, 200);
+
+  //Возвращаем объект фотографии
+  return {
+    id,
+    url: `photos/${id}.jpg`,
+    description: DESCRIPTIONS[randomDescription],
+    likes: randomLikes,
+    comments: createComments
+  };
+};
+
+//Создаем массив из 25 фотографий, записываем в него объекты с помощью колбек функции createPhoto
+const createPhotos = () => {
+  const photos = [];
+  for (let i = 1; i <= 25; i++) {
+    photos.push(createPhoto(i));
+  }
+  return photos;
+};
+
+createPhotos();
